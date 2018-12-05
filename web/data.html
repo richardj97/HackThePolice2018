@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 5.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Database Page</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
+  <script src="data.js"></script> 
+ 
+</head>
+<body>
+<div id="Main">
+ 
+
+<h3>Community ANPR (CANPR) System</h3>
+<h4>If Carlsberg made programmers, they would be called Richard. Probably..</h4>
+<img alt="lp_shield" src="lp_shield.jpg" style="width: 130px; height: 130px;"/>
+
+
+<script>
+    // Initialize Firebase
+    var config = {
+ // Removed confidential details }   firebase.initializeApp(config);
+ 
+    GetAllCrimes();
+    /* QueryBy('VehReg', 'FV15VLJ'); */
+</script>
+
+
+<br><br><br>
+<table id="crimes" align="center">
+  <tr>
+    <th>Crime Type</th>
+    <th>Vehicle Registration</th>
+    <th>Longitude</th>
+    <th>Latitude</th>
+  </tr>
+</table>
+ 
+ <button class="open-button" onclick="openForm()">Open Form</button>
+
+<div class="form-popup" id="myForm">
+  <form action="/action_page.php" class="form-container">
+    <h1>Add Data Form</h1>
+
+    <label for="crimeType"><b>Crime Type</b></label>
+    <input type="text" placeholder="Enter Crime type" id="crimetype" name="crimeType" required>
+
+    <label for="Vehicle Registration"><b>Vehicle Registraion</b></label>
+    <input type="text" placeholder="Enter Registration of vehicle" id="regvehicle" name="regVehicle" required>
+   
+   <label for="Longitude"><b>Longtitude</b></label>
+    <input type="text" placeholder="Enter Longitude" id="longitude" name="Longitude" required>
+   
+   <label for="Latitude"><b>Latitude</b></label>
+    <input type="text" placeholder="Enter Latitude" id="latitude" name="Latitude" required>
+
+    <button type="submit" class="btn" onclick="addData()">Add data</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+ 
+ 
+  <button class="open-button" onclick="openForm()">Add Data</button> 
+ 
+    <button><a href = "https://scoop-cinema.codio.io/Map.html?lat=-0.494500&long=53.268760" target="_blank" >
+    Map</a></button>
+  <button onclick="logout()">Logout</button>
+  
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<html>
+<head>
+  <title>Community ANPR (CANPR)</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="login_div" class="main-div">
+   <center><img alt="lp_shield" src="lp_shield.jpg" style="width: 130px; height: 130px;"/></center><br>
+    <h3>Community ANPR (CANPR) Login</h3>
+    <input type="email" placeholder="Email..." id="email_field" />
+    <input type="password" placeholder="Password..." id="password_field" />
+
+    <button onclick="login()">Login to Account</button>
+  </div>
+
+  <div id="user_div" class="loggedin-div">
+    <h3>Welcome User</h3>
+    <p id="user_para">Welcome message</p>
+   <button><a href = "https://scoop-cinema.codio.io/data.html">
+    Continue</a></button>
+<br>
+    <button onclick="logout()">Logout</button>
+  </div>
+   <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+ // Removed confidential details };
+    firebase.initializeApp(config);
+  </script>
+  <script src="index.js"></script>
+
+</body>
+</html>

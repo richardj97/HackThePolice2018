@@ -1,0 +1,110 @@
+<html>
+
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+ <title>Main Map</title>
+ <style>
+  html, body, #viewDiv {
+   padding: 0;
+   margin: 0;
+   height: 100%;
+   width: 100%;
+  }
+ </style>
+
+ <link rel="stylesheet" href="https://js.arcgis.com/4.9/esri/css/main.css">
+ <script src="https://js.arcgis.com/4.9/"></script>
+
+ <script>
+  require(["esri/Map", "esri/views/MapView", "esri/tasks/ServiceAreaTask", "esri/tasks/support/ServiceAreaParameters", "esri/tasks/support/FeatureSet", "esri/Graphic", "dojo/domReady!"], function(Map, MapView, ServiceAreaTask, ServiceAreaParams, FeatureSet, Graphic) {
+   var map = new Map({
+    //basemap: "topo-vector"
+    basemap: "streets-navigation-vector"
+   });
+
+
+    function getParameterByName(name, url) {
+     if(!url) url = window.location.href;
+     name = name.replace(/[\[\]]/g, '\\$&');
+     var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+      results = regex.exec(url);
+     if(!results) return null;
+     if(!results[2]) return '';
+     return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+   
+   var lat =getParameterByName('lat',window.location.href);
+   var long =getParameterByName('long',window.location.href)
+   var view = new MapView({
+    container: "viewDiv",
+    map: map,
+    center: [lat, long],
+    zoom: 10
+   });
+   var serviceAreaTask = new ServiceAreaTask({
+    url: "https://route.arcgis.com/arcgis/rest/services/World/ServiceAreas/NAServer/ServiceArea_World/solveServiceArea"
+   });
+   view.on("click", function(event) {
+    var locationGraphic = createGraphic(event.mapPoint);
+    var driveTimeCutoffs = [15]; // Minutes CHANGE THIS FOR RADIUS CHANGING
+    var serviceAreaParams = createServiceAreaParams(locationGraphic, driveTimeCutoffs, view.spatialReference);
+    executeServiceAreaTask(serviceAreaParams);
+   });
+   // Create the location graphic
+
+   function createGraphic(point) {
+    // Remove any existing graphics
+    view.graphics.removeAll();
+    // Create a and add the point
+    var graphic = new Graphic({
+     geometry: point,
+     symbol: {
+      type: "simple-marker",
+      color: "white",
+      size: 8
+     }
+    });
+    view.graphics.add(graphic);
+    return graphic;
+   }
+
+   function createServiceAreaParams(locationGraphic, driveTimeCutoffs, outSpatialReference) {
+    // Create one or more locations (facilities) to solve for
+    var featureSet = new FeatureSet({
+     features: [locationGraphic]
+    });
+    // Set all of the input parameters for the service
+    var taskParameters = new ServiceAreaParams({
+     facilities: featureSet,
+     defaultBreaks: driveTimeCutoffs,
+     outSpatialReference: outSpatialReference
+    });
+    return taskParameters;
+   }
+
+   function executeServiceAreaTask(serviceAreaParams) {
+    return serviceAreaTask.solve(serviceAreaParams).then(function(result) {
+     if(result.serviceAreaPolygons.length) {
+      // Draw each service area polygon
+      result.serviceAreaPolygons.forEach(function(graphic) {
+       graphic.symbol = {
+        type: "simple-fill",
+        color: "rgba(255,50,50,.25)"
+       }
+       view.graphics.add(graphic, 0);
+      });
+     }
+    }, function(error) {
+     console.log(error);
+    });
+   }
+  });
+ </script>
+</head>
+
+<body>
+ <div id="viewDiv"></div>
+</body>
+
+</html>
