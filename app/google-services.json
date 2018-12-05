@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "344896052270",
+    "firebase_url": "https://communityanpr.firebaseio.com",
+    "project_id": "communityanpr",
+    "storage_bucket": "communityanpr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344896052270:android:af1eb0d8f79b76b8",
+        "android_client_info": {
+          "package_name": "uk.ac.lincoln.a16629926students.community_anpr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344896052270-reffcrkjp44omiih1ff2belqvkdq7cov.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uk.ac.lincoln.a16629926students.community_anpr",
+            "certificate_hash": "eb584082a2e20af74a8d629afc91fec6fff404e9"
+          }
+        },
+        {
+          "client_id": "344896052270-ktjg8cl6gesioogitdepklkbcnkbmd31.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh8klcG0BxvJanHYKCiR9M9x-e7-TA89I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "344896052270-ktjg8cl6gesioogitdepklkbcnkbmd31.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
